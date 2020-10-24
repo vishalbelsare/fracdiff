@@ -1,4 +1,5 @@
 # flake8: noqa
 
+from .base import fdiff
 from .fracdiff import Fracdiff
-from .statfracdiff import StationaryFracdiff
+from .fracdiffstat import FracdiffStat

@@ -1,33 +1,44 @@
-from statsmodels.tsa.stattools import adfuller
+import statsmodels.tsa.stattools as stattools
 
 
-class StationarityTester:
+class StatTester:
     """
     Carry out stationarity test of time-series.
 
     Parameters
     ----------
-    - method : {'ADF'}, default 'ADF'
-        'ADF' : Augmented Dickey-Fuller unit-root test.
+    - method : {"ADF"}, default "ADF"
+        If "ADF":
+            Augmented Dickey-Fuller unit-root test.
 
     Examples
     --------
+    >>> import numpy as np
     >>> np.random.seed(42)
-    >>> gauss = np.random.randn(100)  # stationary
-    >>> stat = StationarityTester(method='ADF')
-    >>> stat.pvalue(gauss)
-    1.16e-17
-    >>> brown = gauss.cumsum()  # not stationary
-    >>> stat.pvalue(brown)
-    0.60
+
+    Stationary time-series:
+    >>> x = np.random.randn(100)
+    >>> tester = StatTester(method='ADF')
+    >>> tester.pvalue(x)
+    1.1655044784188669e-17
+    >>> tester.is_stat(x)
+    True
+
+    Non-stationary time-series:
+    >>> x = np.cumsum(x)
+    >>> tester.pvalue(x)
+    0.6020814791099098
+    >>> tester.is_stat(x)
+    False
     """
-    def __init__(self, method='ADF'):
+
+    def __init__(self, method="ADF"):
         self.method = method
 
     @property
     def null_hypothesis(self):
-        if self.method == 'ADF':
-            return 'unit-root'
+        if self.method == "ADF":
+            return "unit-root"
 
     def pvalue(self, x):
         """
@@ -35,35 +46,40 @@ class StationarityTester:
 
         Parameters
         ----------
-        - x : array-like, shape (n_samples, )
-            Time-series to score p-value.
+        - x : array, shape (n_samples,)
+            Time-series to evaluate p-value.
 
         Returns
         -------
         pvalue : float
             p-value of the stationarity test.
         """
-        if self.method == 'ADF':
-            _, pvalue, _, _, _, _ = adfuller(x)
+        if self.method == "ADF":
+            _, pvalue, _, _, _, _ = stattools.adfuller(x)
             return pvalue
-        raise ValueError(f'Invalid method: {self.method}')
 
-    def is_stationary(self, x, y=None, pvalue=.05):
+    def is_stat(self, x, pvalue=0.05):
         """
         Return whether stationarity test implies stationarity.
 
+        Parameters
+        ----------
+        - x : array, shape (n_samples,)
+            Time-series to evaluate p-value.
+        - pvalue : float, default 0.05
+            Threshold of p-value.
+
         Note
         ----
-        The name 'is_stationary' may be misleading.
-        Strictly speaking, `is_stationary = True` implies that the
-        null-hypothesis of the presence of a unit-root has been rejected
-        (ADF test) or the null-hypothesis of the absence of a unit-root has
-        not been rejected (KPSS test).
+        The name 'is_stat' may be misleading.
+        Strictly speaking, `is_stat = True` implies that the null-hypothesis of
+        the presence of a unit-root has been rejected (ADF test) or the null-hypothesis
+        of the absence of a unit-root has not been rejected (KPSS test).
 
         Returns
         -------
-        is_stationary : bool
+        is_stat : bool
             True may imply the stationarity.
         """
-        if self.null_hypothesis == 'unit-root':
+        if self.null_hypothesis == "unit-root":
             return self.pvalue(x) < pvalue

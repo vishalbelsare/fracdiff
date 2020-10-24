@@ -1,12 +1,16 @@
 # Fracdiff
 
-[![version](https://img.shields.io/pypi/v/fracdiff.svg)](https://pypi.org/project/fracdiff/)
-[![Build Status](https://travis-ci.com/simaki/fracdiff.svg?branch=master)](https://travis-ci.com/simaki/fracdiff)
+[![python versions](https://img.shields.io/pypi/pyversions/fracdiff.svg)](https://pypi.org/project/fracdiff)
+[![version](https://img.shields.io/pypi/v/fracdiff.svg)](https://pypi.org/project/fracdiff)
+[![build status](https://travis-ci.com/simaki/fracdiff.svg?branch=master)](https://travis-ci.com/simaki/fracdiff)
 [![codecov](https://codecov.io/gh/simaki/fracdiff/branch/master/graph/badge.svg)](https://codecov.io/gh/simaki/fracdiff)
-[![dl](https://img.shields.io/pypi/dm/fracdiff)](https://pypi.org/project/fracdiff/)
+[![dl](https://img.shields.io/pypi/dm/fracdiff)](https://pypi.org/project/fracdiff)
 [![LICENSE](https://img.shields.io/github/license/simaki/fracdiff)](LICENSE)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-Fractional differentiation of time-series.
+Python library to perform fractional differentiation of time-series,
+a la "Advances in Financial Machine Learning" by M. Prado.
+Fracdiff processes time-series to be stationary while preserving memory.
 
 ![spx](./sample/howto/spx.png)
 
@@ -18,65 +22,96 @@ $ pip install fracdiff
 
 ## Features
 
-- Perform fractional differentiation of time-series
-- Scikit-learn-like API
+Fracdiff is a Python library to perform fractional differentiation of time-series.
+Fractional differentiation preprocesses time-series to a stationary one while preserving the memory in the original series.
+
+- `fdiff`: A function which extends [`numpy.diff`](https://numpy.org/doc/stable/reference/generated/numpy.diff.html) to a fractional order.
+- `Fracdiff`: Transformer to perform fractional differentiation of time-series.
+- `FracdiffStat`: Transformer to make fractionally differentiated time-series are stationary while preserving maximum memory.
 
 ## What is fractional differentiation?
 
 See [M. L. Prado, "Advances in Financial Machine Learning"][prado].
 
-## How to use
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simaki/fracdiff/blob/master/sample/howto/howto.ipynb)
+## How to use [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simaki/fracdiff/blob/master/sample/howto/howto.ipynb)
 
 ### Fractional differentiation
 
+A function `fdiff` calculates fractional differentiation.
+This is an extension of `numpy.diff` to a fractional order.
+
+```python
+import numpy as np
+from fracdiff import fdiff
+
+a = np.array([1, 2, 4, 7, 0])
+fdiff(a, n=0.5)
+# array([ 1.       ,  1.5      ,  2.875    ,  4.6875   , -4.1640625])
+np.array_equal(fdiff(a, n=1), np.diff(a, n=1))
+# True
+
+a = np.array([[1, 3, 6, 10], [0, 5, 6, 8]])
+fdiff(a, n=0.5, axis=0)
+# array([[ 1. ,  3. ,  6. , 10. ],
+#        [-0.5,  3.5,  3. ,  3. ]])
+fdiff(a, n=0.5, axis=-1)
+# array([[1.    , 2.5   , 4.375 , 6.5625],
+#        [0.    , 5.    , 3.5   , 4.375 ]])
+```
+
+### Preprocessing by fractional differentiation
+
 A transformer class `Fracdiff` performs fractional differentiation by its method `transform`.
-The following example gives 0.5th differentiation of S&P 500.
 
 ```python
 from fracdiff import Fracdiff
 
-spx = ...  # Fetch 1d array of S&P 500 historical price
+X = ...  # Time-series
 
-fracdiff = Fracdiff(0.5)
-spx_diff = fracdiff.transform(spx)
+f = Fracdiff(0.5)
+X = f.fit_transform(X)
 ```
 
-The result looks like this:
+For example, 0.5th differentiation of S&P 500 historical price looks like this:
 
 ![spx](./sample/howto/spx.png)
 
-### Differentiation while preserving memory
-
-A transformer class `StationaryFracdiff` finds the minumum order of fractional differentiation that makes time-series stationary.
+`Fracdiff` is compatible with scikit-learn API.
+One can imcorporate it into a pipeline.
 
 ```python
-from fracdiff import StationaryFracdiff
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
 
-nky = ...  # Fetch 1d array of Nikkei 225 historical price
+X, y = ...  # Dataset
 
-statfracdiff = StationaryFracdiff()
-statfracdiff.fit(nky)
-
-statfracdiff.order_
-# 0.23
+pipeline = Pipeline([
+    ('scaler', StandardScaler()),
+    ('fracdiff', Fracdiff(0.5)),
+    ('regressor', LinearRegression()),
+])
+pipeline.fit(X, y)
 ```
 
+### Fractional differentiation while preserving memory
+
+A transformer class `FracdiffStat` finds the minumum order of fractional differentiation that makes time-series stationary.
 Differentiated time-series with this order is obtained by subsequently applying `transform` method.
 This series is interpreted as a stationary time-series keeping the maximum memory of the original time-series.
 
 ```python
-nky_diff = statfracdiff.transform(nky)  # same with Fracdiff(0.23).transform(nky)
+from fracdiff import FracdiffStat
+
+X = ...  # Fetch 1d array of Nikkei 225 historical price
+
+f = FracdiffStat()
+X = f.fit_transform(X)
+f.d_
+# array([0.71875 , 0.609375, 0.515625])
 ```
 
-The method `fit_transform` carries out `fit` and `transform` at once.
-
-```python
-nky_diff = statfracdiff.fit_transform(nky)
-```
-
-The result looks like this:
+The result for Nikkei 225 index historical price looks like this:
 
 ![nky](./sample/howto/nky.png)
 
