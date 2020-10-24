@@ -1,39 +1,34 @@
 import pytest
 
 import numpy as np
-from fracdiff._stat import StationarityTester
+from fracdiff._stat import StatTester
 
 
-params_seed = [42]
-params_n_samples = [100, 1000, 10000]
+class TestStat:
+    """
+    Test `StatTester`.
+    """
 
+    def _make_stationary(self, seed, n_samples):
+        np.random.seed(seed)
+        return np.random.randn(n_samples)
 
-def make_stationary(seed, n_samples):
-    np.random.seed(seed)
-    return np.random.randn(n_samples)
+    def _make_nonstationary(self, seed, n_samples):
+        np.random.seed(seed)
+        return np.random.randn(n_samples).cumsum()
 
+    @pytest.mark.parametrize("seed", [42])
+    @pytest.mark.parametrize("n_samples", [100, 1000, 10000])
+    def test_stationary(self, seed, n_samples):
+        X = self._make_stationary(seed, n_samples)
 
-def make_nonstationary(seed, n_samples):
-    np.random.seed(seed)
-    return np.random.randn(n_samples).cumsum()
+        assert StatTester().pvalue(X) < 0.1
+        assert StatTester().is_stat(X)
 
+    @pytest.mark.parametrize("seed", [42])
+    @pytest.mark.parametrize("n_samples", [100, 1000, 10000])
+    def test_nonstationary(self, seed, n_samples):
+        X = self._make_nonstationary(seed, n_samples)
 
-# --------------------------------------------------------------------------------
-
-
-@pytest.mark.parametrize('seed', params_seed)
-@pytest.mark.parametrize('n_samples', params_n_samples)
-def test_stationary(seed, n_samples):
-    X = make_stationary(seed, n_samples)
-
-    assert StationarityTester().pvalue(X) < 0.1
-    assert StationarityTester().is_stationary(X)
-
-
-@pytest.mark.parametrize('seed', params_seed)
-@pytest.mark.parametrize('n_samples', params_n_samples)
-def test_nonstationary(seed, n_samples):
-    X = make_nonstationary(seed, n_samples)
-
-    assert StationarityTester().pvalue(X) > 0.1
-    assert not StationarityTester().is_stationary(X)
+        assert StatTester().pvalue(X) > 0.1
+        assert not StatTester().is_stat(X)

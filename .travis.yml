@@ -12,9 +12,7 @@ install:
   - echo "install end"
 script:
   - echo "script start"
-  - pytest --cov=fracdiff
-  - sh tests/sample.sh
-  - flake8 fracdiff
+  - python3 -m pytest --cov=fracdiff
   - echo "script end"
 after_success:
   - codecov
