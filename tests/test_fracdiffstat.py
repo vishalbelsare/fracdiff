@@ -3,7 +3,7 @@ import pytest
 import numpy as np
 from numpy.testing import assert_allclose
 
-from fracdiff._stat import StatTester
+from fracdiff.stat import StatTester
 from fracdiff import Fracdiff
 from fracdiff import FracdiffStat
 

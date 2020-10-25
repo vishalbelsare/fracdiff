@@ -5,7 +5,7 @@ from sklearn.utils.validation import check_array
 from sklearn.utils.validation import check_is_fitted
 
 from fracdiff import Fracdiff
-from fracdiff._stat import StatTester
+from fracdiff.stat import StatTester
 
 
 class FracdiffStat(TransformerMixin, BaseEstimator):
