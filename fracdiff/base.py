@@ -111,8 +111,8 @@ def fdiff(
     if isinstance(n, int) or n.is_integer():
         return np.diff(a, n=int(n), axis=axis, prepend=prepend, append=append)
 
-    if n < 0:
-        raise ValueError("order must be non-negative but got {}".format(n))
+    # if n < 0:
+    #     raise ValueError("order must be non-negative but got {}".format(n))
     if a.ndim == 0:
         raise ValueError("diff requires input that is at least one dimensional")
 
