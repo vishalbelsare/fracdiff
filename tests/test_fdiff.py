@@ -47,10 +47,6 @@ class TestFdiff:
         out = self._coef(n, window)
         assert_allclose(fdiff_coef(n, window), out)
 
-    @pytest.mark.parametrize("n", [-0.1, -1.0])
-    def test_error_n_negative(self, n):
-        assert_raises(ValueError, fdiff, np.zeros(100), n=n)
-
     def test_error_0dim(self):
         assert_raises(ValueError, fdiff, np.array(0), n=0.5)
 
