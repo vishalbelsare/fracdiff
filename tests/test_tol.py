@@ -24,8 +24,6 @@ class TestTol:
     def test_tol_memory(self, d, tol):
         window = window_from_tol_memory(d, tol)
 
-        print(window)
-
         lost_memory_0 = np.abs(np.sum(fdiff_coef(d, self.LARGE)[window:]))
         lost_memory_1 = np.abs(np.sum(fdiff_coef(d, self.LARGE)[window - 1 :]))
 
