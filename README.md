@@ -26,8 +26,8 @@ Fracdiff is a Python library to perform fractional differentiation of time-serie
 Fractional differentiation preprocesses time-series to a stationary one while preserving the memory in the original series.
 
 - `fdiff`: A function which extends [`numpy.diff`](https://numpy.org/doc/stable/reference/generated/numpy.diff.html) to a fractional order.
-- `Fracdiff`: Transformer to perform fractional differentiation of time-series.
-- `FracdiffStat`: Transformer to make fractionally differentiated time-series are stationary while preserving maximum memory.
+- `Fracdiff`: Transformer to perform fractional differentiation of time-series. Compatible with scikit-learn API.
+- `FracdiffStat`: Transformer to make fractionally differentiated time-series are stationary while preserving maximum memory. Compatible with scikit-learn API.
 
 ## What is fractional differentiation?
 
