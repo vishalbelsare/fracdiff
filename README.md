@@ -1,4 +1,4 @@
-# Fracdiff: Super-fast fractional differentiation
+# Fracdiff: Super-fast Fractional Differentiation
 
 [![python versions](https://img.shields.io/pypi/pyversions/fracdiff.svg)](https://pypi.org/project/fracdiff)
 [![version](https://img.shields.io/pypi/v/fracdiff.svg)](https://pypi.org/project/fracdiff)
