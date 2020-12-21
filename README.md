@@ -2,7 +2,7 @@
 
 [![python versions](https://img.shields.io/pypi/pyversions/fracdiff.svg)](https://pypi.org/project/fracdiff)
 [![version](https://img.shields.io/pypi/v/fracdiff.svg)](https://pypi.org/project/fracdiff)
-[![build status](https://travis-ci.com/simaki/fracdiff.svg?branch=master)](https://travis-ci.com/simaki/fracdiff)
+[![CI](https://github.com/simaki/fracdiff/workflows/CI/badge.svg)](https://github.com/simaki/fracdiff/actions?query=workflow%3ACI)
 [![codecov](https://codecov.io/gh/simaki/fracdiff/branch/master/graph/badge.svg)](https://codecov.io/gh/simaki/fracdiff)
 [![dl](https://img.shields.io/pypi/dm/fracdiff)](https://pypi.org/project/fracdiff)
 [![LICENSE](https://img.shields.io/github/license/simaki/fracdiff)](LICENSE)
