@@ -63,9 +63,9 @@ def window_from_tol_memory(n, tol_memory, max_window=2 ** 12):
     >>> window_from_tol_memory(0.5, 0.2)
     9
     >>> np.sum(fdiff_coef(0.5, 10000)[9:])
-    -0.19073850781678142
+    -0.19073...
     >>> np.sum(fdiff_coef(0.5, 10000)[8:])
-    -0.20383054883240645
+    -0.20383...
     """
     lost_memory = np.abs(np.cumsum(fdiff_coef(n, max_window)))
     return np.searchsorted(-lost_memory, -tol_memory) + 1  # index -> length
