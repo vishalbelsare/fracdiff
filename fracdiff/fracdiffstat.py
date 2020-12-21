@@ -138,11 +138,13 @@ class FracdiffStat(TransformerMixin, BaseEstimator):
         -------
         d : float
         """
-        diff = lambda d: (
-            Fracdiff(d, window=self.window, mode=self.mode)
-            .fit_transform(x.reshape(-1, 1))
-            .reshape(-1)
-        )
+
+        def diff(d):
+            return (
+                Fracdiff(d, window=self.window, mode=self.mode)
+                .fit_transform(x.reshape(-1, 1))
+                .reshape(-1)
+            )
 
         if not self._is_stat(diff(self.upper)):
             return np.nan
