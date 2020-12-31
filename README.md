@@ -66,7 +66,7 @@ A transformer class `Fracdiff` performs fractional differentiation by its method
 ```python
 from fracdiff import Fracdiff
 
-X = ...  # Time-series
+X = ...  # 2d time-series with shape (n_samples, n_features)
 
 f = Fracdiff(0.5)
 X = f.fit_transform(X)
@@ -103,7 +103,7 @@ This series is interpreted as a stationary time-series keeping the maximum memor
 ```python
 from fracdiff import FracdiffStat
 
-X = ...  # Fetch 1d array of Nikkei 225 historical price
+X = ...  # 2d time-series with shape (n_samples, n_features)
 
 f = FracdiffStat()
 X = f.fit_transform(X)
