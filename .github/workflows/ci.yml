@@ -19,30 +19,29 @@ on:
 jobs:
   Test:
     name: Test
-    
+
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
-        python-version: ['3.6', '3.7', '3.8']
+        python-version: ['3.6', '3.7', '3.8', '3.9']
 
     steps:
 
     - name: Checkout
       uses: actions/checkout@v2
-      
+
     - name: Setup Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install package
+    - name: Install
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install .
-    - name: Install pytest
-      run: |
         python3 -m pip install pytest pytest-cov codecov
+
     - name: Run doctest
       run: |
         python3 -m pytest --doctest-modules ${PROJECT_NAME}
@@ -56,20 +55,21 @@ jobs:
     - name: Upload codecov report
       run: |
         python3 -m codecov
+
   Lint:
     name: Lint
 
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
-        python-version: ['3.8']
+        python-version: ['3.9']
 
     steps:
 
     - name: Checkout
       uses: actions/checkout@v2
-      
+
     - name: Setup Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
