@@ -2,9 +2,6 @@ import pytest
 
 import numpy as np
 from numpy.testing import assert_array_equal
-from numpy.testing import assert_equal
-from numpy.testing import assert_allclose
-from numpy.testing import assert_raises
 
 from fracdiff import fdiff
 from fracdiff import Fracdiff
