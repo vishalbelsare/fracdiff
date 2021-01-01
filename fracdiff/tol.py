@@ -3,7 +3,7 @@ import numpy as np
 from fracdiff.base import fdiff_coef
 
 
-def window_from_tol_coef(n, tol_coef, max_window=2 ** 12):
+def window_from_tol_coef(n, tol_coef, max_window=2 ** 12) -> int:
     """
     Return length of window determined from tolerance to memory loss.
 
@@ -29,6 +29,8 @@ def window_from_tol_coef(n, tol_coef, max_window=2 ** 12):
     window : int
         Length of window
 
+    Examples
+    --------
     >>> window_from_tol_coef(0.5, 0.1)
     4
     >>> fdiff_coef(0.5, 3)[-1]
@@ -40,7 +42,7 @@ def window_from_tol_coef(n, tol_coef, max_window=2 ** 12):
     return np.searchsorted(-coef, -tol_coef) + 1  # index -> length
 
 
-def window_from_tol_memory(n, tol_memory, max_window=2 ** 12):
+def window_from_tol_memory(n, tol_memory, max_window=2 ** 12) -> int:
     """
     Return length of window determined from tolerance to memory loss.
 
@@ -60,6 +62,13 @@ def window_from_tol_memory(n, tol_memory, max_window=2 ** 12):
     - tol_memory : float in range (0, 1)
         Tolerance of lost memory.
 
+    Returns
+    -------
+    window : int
+        Length of window
+
+    Examples
+    --------
     >>> window_from_tol_memory(0.5, 0.2)
     9
     >>> np.sum(fdiff_coef(0.5, 10000)[9:])

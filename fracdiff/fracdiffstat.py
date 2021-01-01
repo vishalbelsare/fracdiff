@@ -99,7 +99,7 @@ class FracdiffStat(TransformerMixin, BaseEstimator):
 
         return self
 
-    def transform(self, X, y=None):
+    def transform(self, X, y=None) -> np.array:
         check_is_fitted(self, ["d_"])
         check_array(X)
 
@@ -113,7 +113,7 @@ class FracdiffStat(TransformerMixin, BaseEstimator):
 
         return out
 
-    def _is_stat(self, x):
+    def _is_stat(self, x) -> bool:
         """
         Parameters
         ----------
@@ -125,7 +125,7 @@ class FracdiffStat(TransformerMixin, BaseEstimator):
         """
         return StatTester(method=self.stattest).is_stat(x, pvalue=self.pvalue)
 
-    def _find_d(self, x):
+    def _find_d(self, x) -> float:
         """
         Carry out binary search of minimum order of fractional
         differentiation to make the time-series stationary.
