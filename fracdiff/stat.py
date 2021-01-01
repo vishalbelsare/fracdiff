@@ -36,11 +36,11 @@ class StatTester:
         self.method = method
 
     @property
-    def null_hypothesis(self):
+    def null_hypothesis(self) -> str:
         if self.method == "ADF":
             return "unit-root"
 
-    def pvalue(self, x):
+    def pvalue(self, x) -> float:
         """
         Return p-value of the stationarity test.
 
@@ -58,7 +58,7 @@ class StatTester:
             _, pvalue, _, _, _, _ = stattools.adfuller(x)
             return pvalue
 
-    def is_stat(self, x, pvalue=0.05):
+    def is_stat(self, x, pvalue=0.05) -> bool:
         """
         Return whether stationarity test implies stationarity.
 

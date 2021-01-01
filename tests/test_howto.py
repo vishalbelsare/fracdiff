@@ -1,6 +1,3 @@
-import pytest
-
-
 class TestHowto:
     """
     Test if `How to use` in README runs without error

@@ -8,11 +8,15 @@
 [![LICENSE](https://img.shields.io/github/license/simaki/fracdiff)](LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-Python library to perform fractional differentiation of time-series,
+***Fracdiff*** is a Python library to perform fractional differentiation of time-series,
 a la "Advances in Financial Machine Learning" by M. Prado.
-Fracdiff processes time-series to be stationary while preserving memory.
+Fracdiff processes time-series to a stationary one while preserving memory in the original time-series.
 
 ![spx](./sample/howto/spx.png)
+
+## What is fractional differentiation?
+
+See [M. L. Prado, "Advances in Financial Machine Learning"][prado].
 
 ## Installation
 
@@ -22,16 +26,39 @@ $ pip install fracdiff
 
 ## Features
 
-Fracdiff is a Python library to perform fractional differentiation of time-series.
-Fractional differentiation preprocesses time-series to a stationary one while preserving the memory in the original series.
+### Functionalities
 
-- `fdiff`: A function which extends [`numpy.diff`](https://numpy.org/doc/stable/reference/generated/numpy.diff.html) to a fractional order.
-- `Fracdiff`: Transformer to perform fractional differentiation of time-series. Compatible with scikit-learn API.
-- `FracdiffStat`: Transformer to make fractionally differentiated time-series are stationary while preserving maximum memory. Compatible with scikit-learn API.
+- `fdiff`: A function which extends [`numpy.diff`](https://numpy.org/doc/stable/reference/generated/numpy.diff.html) to fractional orders.
+- `Fracdiff`: Perform fracdiff of a set of time-series. Compatible with scikit-learn API.
+- `FracdiffStat`: Automatically fracdiff which makes a set of time-series stationary while preserving their maximum memory. Compatible with scikit-learn API.
 
-## What is fractional differentiation?
+### Speed
 
-See [M. L. Prado, "Advances in Financial Machine Learning"][prado].
+Fracdiff is blazingly fast.
+
+The following graphs show that *Fracdiff* computes fractional differentiation much faster than the "official" implementation.
+
+It is especially noteworthy that execution time does not increase significantly as the number of time-steps (`n_samples`) increases, thanks to NumPy engine.
+
+![time](https://user-images.githubusercontent.com/24503967/103437530-0a6c9800-4c6c-11eb-8119-48ef9e58ee63.png)
+
+The following tables of execution times (in unit of ms) show that *Fracdiff* can be ~10000 times faster than the "official" implementation.
+
+|   n_samples | fracdiff       | official             |
+|------------:|:---------------|:---------------------|
+|         100 | 0.164 +- 0.088 | 20.725 +- 5.323      |
+|        1000 | 0.162 +- 0.055 | 108.049 +- 3.612     |
+|       10000 | 0.268 +- 0.085 | 1074.970 +- 89.375   |
+|      100000 | 0.779 +- 0.241 | 12418.813 +- 453.551 |
+
+|   n_features | fracdiff        | official                |
+|-------------:|:----------------|:------------------------|
+|            1 | 0.162 +- 0.055  | 108.049 +- 3.612        |
+|           10 | 0.229 +- 0.036  | 1395.027 +- 172.948     |
+|          100 | 1.745 +- 0.196  | 13820.834 +- 821.352    |
+|         1000 | 19.438 +- 2.093 | 154178.162 +- 11141.337 |
+
+(Run on Macbook Air 2018, 1.6 GHz Dual-Core Intel Core i5, 16 GB 2133 MHz LPDDR3)
 
 ## How to use [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simaki/fracdiff/blob/master/sample/howto/howto.ipynb)
 
