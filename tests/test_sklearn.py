@@ -13,17 +13,17 @@ class TestScikitLearn:
     @pytest.mark.parametrize("n_samples", [20, 100])
     @pytest.mark.parametrize("n_features", [1, 10])
     @pytest.mark.parametrize("d", [0.5])
-    def test_sample(self, seed, n_samples, n_features, d):
+    def test_sample_fit_transform(self, seed, n_samples, n_features, d):
         np.random.seed(seed)
 
         X = np.random.randn(n_samples, n_features)
-        fracdiff = Fracdiff(d).transform(X)
+        _ = Fracdiff(d).fit_transform(X)
 
     @pytest.mark.parametrize("seed", [42])
     @pytest.mark.parametrize("n_samples", [20, 100])
     @pytest.mark.parametrize("n_features", [1, 10])
     @pytest.mark.parametrize("d", [0.5])
-    def test_sample(self, seed, n_samples, n_features, d):
+    def test_sample_pipeline(self, seed, n_samples, n_features, d):
         np.random.seed(seed)
 
         X = np.random.randn(n_samples, n_features)

@@ -1,3 +1,4 @@
+import numpy as np
 from sklearn.base import TransformerMixin
 from sklearn.utils.validation import check_array
 from sklearn.utils.validation import check_is_fitted
@@ -117,7 +118,7 @@ class Fracdiff(TransformerMixin):
         self.coef_ = fdiff_coef(self.d, self.window)
         return self
 
-    def transform(self, X, y=None):
+    def transform(self, X, y=None) -> np.array:
         """
         Return fractional differentiation of X.
 

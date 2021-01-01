@@ -4,7 +4,7 @@ import numpy as np
 from scipy.special import binom
 
 
-def fdiff_coef(d, window):
+def fdiff_coef(d, window) -> np.array:
     """
     Returns sequence of coefficients in fracdiff operator.
 
@@ -35,7 +35,7 @@ def fdiff_coef(d, window):
 
 def fdiff(
     a, n=1.0, axis=-1, prepend=np._NoValue, append=np._NoValue, window=10, mode="full"
-):
+) -> np.array:
     """
     Calculate the n-th differentiation along the given axis.
     Extention of `numpy.diff` to fractional differentiation.

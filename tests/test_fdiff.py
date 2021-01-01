@@ -192,7 +192,7 @@ class TestFdiff:
     @pytest.mark.parametrize("window", [2])
     @pytest.mark.parametrize("mode", ["full", "valid"])
     @pytest.mark.parametrize("const", [2, 0.5, -1])
-    def test_linearity_add(self, n, window, mode, const):
+    def test_linearity_mul(self, n, window, mode, const):
         np.random.seed(42)
         a0 = np.random.randn(10, 20)
         a1 = const * a0
