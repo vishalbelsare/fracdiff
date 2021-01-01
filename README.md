@@ -14,6 +14,10 @@ Fracdiff processes time-series to a stationary one while preserving memory in th
 
 ![spx](./sample/howto/spx.png)
 
+## What is fractional differentiation?
+
+See [M. L. Prado, "Advances in Financial Machine Learning"][prado].
+
 ## Installation
 
 ```sh
@@ -55,10 +59,6 @@ The following tables of execution times (in unit of ms) show that *Fracdiff* can
 |         1000 | 19.438 +- 2.093 | 154178.162 +- 11141.337 |
 
 (Run on Macbook Air 2018, 1.6 GHz Dual-Core Intel Core i5, 16 GB 2133 MHz LPDDR3)
-
-## What is fractional differentiation?
-
-See [M. L. Prado, "Advances in Financial Machine Learning"][prado].
 
 ## How to use [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simaki/fracdiff/blob/master/sample/howto/howto.ipynb)
 
