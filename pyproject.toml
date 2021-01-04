@@ -4,7 +4,6 @@ version = "0.2.4"
 description = "Compute fractional differentiation super-fast."
 authors = ["Shota Imaki <shota.imaki@icloud.com>"]
 license = "BSD-3-Clause"
-homepage = "https://github.com/simaki/fracdiff"
 repository = "https://github.com/simaki/fracdiff"
 
 [tool.poetry.dependencies]
