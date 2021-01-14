@@ -8,9 +8,10 @@
 [![LICENSE](https://img.shields.io/github/license/simaki/fracdiff)](LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-***Fracdiff*** is a Python library to perform fractional differentiation of time-series,
+***Fracdiff*** performs fractional differentiation of time-series,
 a la "Advances in Financial Machine Learning" by M. Prado.
-Fracdiff processes time-series to a stationary one while preserving memory in the original time-series.
+Fractional differentiation processes time-series to a stationary one while preserving memory in the original time-series.
+Fracdiff features super-fast computation and scikit-learn compatible API.
 
 ![spx](./sample/howto/spx.png)
 
