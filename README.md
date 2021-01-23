@@ -5,7 +5,6 @@
 [![CI](https://github.com/simaki/fracdiff/workflows/CI/badge.svg)](https://github.com/simaki/fracdiff/actions?query=workflow%3ACI)
 [![codecov](https://codecov.io/gh/simaki/fracdiff/branch/master/graph/badge.svg)](https://codecov.io/gh/simaki/fracdiff)
 [![dl](https://img.shields.io/pypi/dm/fracdiff)](https://pypi.org/project/fracdiff)
-[![LICENSE](https://img.shields.io/github/license/simaki/fracdiff)](LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ***Fracdiff*** performs fractional differentiation of time-series,
