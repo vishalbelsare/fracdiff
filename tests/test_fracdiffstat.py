@@ -1,11 +1,10 @@
-import pytest
-
 import numpy as np
+import pytest
 from numpy.testing import assert_allclose
 
-from fracdiff.stat import StatTester
 from fracdiff import Fracdiff
 from fracdiff import FracdiffStat
+from fracdiff.stat import StatTester
 
 
 class TestFracdiffStat:

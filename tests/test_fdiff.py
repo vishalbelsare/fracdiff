@@ -1,15 +1,14 @@
-import pytest
-
 import math
 
 import numpy as np
+import pytest
+from numpy.testing import assert_allclose
 from numpy.testing import assert_array_equal
 from numpy.testing import assert_equal
-from numpy.testing import assert_allclose
 from numpy.testing import assert_raises
 
-from fracdiff.base import fdiff_coef
 from fracdiff import fdiff
+from fracdiff.base import fdiff_coef
 
 
 class TestFdiff:

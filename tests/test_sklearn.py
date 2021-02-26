@@ -1,9 +1,8 @@
-import pytest
-
 import numpy as np
+import pytest
 from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 from fracdiff import Fracdiff
 
