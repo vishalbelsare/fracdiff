@@ -20,7 +20,7 @@ codecov = "^2.0.15"
 flake8 = "^3.7.9"
 matplotlib = "^3.1.2"
 pandas = "^0.25.3"
-pandas_datareader = "^0.8.1"
+pandas_datareader = "^0.9.0"
 
 [build-system]
 requires = ["poetry>=0.12"]
