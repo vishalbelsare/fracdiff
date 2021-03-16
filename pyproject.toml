@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "fracdiff"
-version = "0.2.5"
+version = "0.2.6"
 description = "Compute fractional differentiation super-fast."
 authors = ["Shota Imaki <shota.imaki@icloud.com>"]
 license = "BSD-3-Clause"
 repository = "https://github.com/simaki/fracdiff"
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.6.13"
 numpy = "^1.18.0"
 scikit-learn = "^0.24.0"
 statsmodels = "^0.12.0"
