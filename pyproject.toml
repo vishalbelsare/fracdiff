@@ -19,7 +19,7 @@ pytest-cov = "^2.8.1"
 codecov = "^2.1.11"
 flake8 = "^3.7.9"
 matplotlib = "^3.3.4"
-pandas = "^0.25.3"
+pandas = "^1.1.5"
 pandas_datareader = "^0.9.0"
 
 [build-system]
