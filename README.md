@@ -7,6 +7,8 @@
 [![dl](https://img.shields.io/pypi/dm/fracdiff)](https://pypi.org/project/fracdiff)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+[Documentation](https://simaki.github.io/fracdiff/)
+
 ***Fracdiff*** performs fractional differentiation of time-series,
 a la "Advances in Financial Machine Learning" by M. Prado.
 Fractional differentiation processes time-series to a stationary one while preserving memory in the original time-series.
