@@ -37,25 +37,28 @@ def fdiff(
     a, n=1.0, axis=-1, prepend=np._NoValue, append=np._NoValue, window=10, mode="full"
 ) -> np.array:
     """
-    Calculate the n-th differentiation along the given axis.
-    Extention of `numpy.diff` to fractional differentiation.
+    Calculate the `n`-th differentiation along the given axis.
+
+    Extention of ``numpy.diff`` to fractional differentiation.
 
     Parameters
     ----------
-    - a : array_like
+    a : array_like
         Input array.
-    - n : float > 0, default 1.0
-        The order of differentiation. It can be float.
-    - axis : int, default -1
+    n : float, default=1.0
+        The order of differentiation.
+        For integer `n`, it returns the same output with ``numpy.diff``.
+    axis : int, default=-1
         The axis along which the difference is taken, default is the last axis.
-    - prepend, append : array_like, optional
-        Values to prepend or append to a along axis prior to performing the difference.
+    prepend, append : array_like, optional
+        Values to prepend or append to `a` along axis prior to performing
+        the difference.
         Scalar values are expanded to arrays with length 1 in the direction of axis and
         the shape of the input array in along all other axes.
-        Otherwise the dimension and shape must match a except along axis.
-    - window : int, default 10
+        Otherwise the dimension and shape must match `a` except along axis.
+    window : int, default=10
         Number of observations to compute each element in the output.
-    - mode : {"full", "valid"}, default "full"
+    mode : {"full", "valid"}, default="full"
         "full" (default) :
             Return elements where at least one coefficient is used.
             Output size along `axis` is `M` where `M` is the length of `a`
@@ -63,43 +66,44 @@ def fdiff(
             At the beginning of a time-series, boundary effects may be seen.
         "valid" :
             Return elements where all coefficients are used.
-            Output size along `axis` is `M - window` where `M` is the length of `a`
-            (plus the lengths of append and prepend if these are given).
+            Output size along `axis` is `M - window` where `M` is the length of
+            `a` (plus the lengths of append and prepend if these are given).
             At the beginning of a time-series, boundary effects is not seen.
 
     Returns
     -------
-    diff : numpy.array
-        Fractional differentiation.
-        The shape of the output is the same as a except along axis.
-        where the dimension is `a.shape[axis] - window + d1 + d2` with
-        `d1` and `d2` being the dimension of `prepend` and `append`, respectively.
-        The type of the output is `numpy.float32` if `a` is so and otherwise
-        `numpy.float64`.
+    fdiff : numpy.array
+        The fractional differentiation.
+        The shape of the output is the same as `a` except along `axis`.
+        The dimension is `a.shape[axis] - window + d1 + d2` with
+        `d1` and `d2` being the dimension of ``prepend`` and ``append``, respectively.
 
     Examples
     --------
-    This returns the same result with `numpy.diff` for integer n:
+    This returns the same result with ``numpy.diff`` for integer `n`.
+
     >>> a = np.array([1, 2, 4, 7, 0])
     >>> (np.diff(a) == fdiff(a)).all()
     True
     >>> (np.diff(a, 2) == fdiff(a, 2)).all()
     True
 
-    This returns fractional differentiation for float n:
+    This returns fractional differentiation for noninteger `n`.
+
     >>> fdiff(a, 0.5, window=3)
     array([ 1.   ,  1.5  ,  2.875,  4.75 , -4.   ])
 
-    Mode "valid" returns elements where all coefficients are convoluted:
+    Mode "valid" returns elements for which all coefficients are convoluted.
+
     >>> fdiff(a, 0.5, window=3, mode="valid")
     array([ 2.875,  4.75 , -4.   ])
     >>> fdiff(a, 0.5, window=3, mode="valid", prepend=[1, 1])
     array([ 0.375,  1.375,  2.875,  4.75 , -4.   ])
 
-    Multi-dimensional example:
-    >>> a = np.array([[1, 3, 6, 10, 15], [0, 5, 6, 8, 11]])
-    >>> (np.diff(a) == fdiff(a)).all()
-    True
+    Differentiation along desired axis.
+
+    >>> a = np.array([[  1,  3,  6, 10, 15],
+    ...               [  0,  5,  6,  8, 11]])
     >>> fdiff(a, 0.5, window=3)
     array([[1.   , 2.5  , 4.375, 6.625, 9.25 ],
            [0.   , 5.   , 3.5  , 4.375, 6.25 ]])

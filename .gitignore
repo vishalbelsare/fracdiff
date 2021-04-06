@@ -1,3 +1,8 @@
+docs/
+!docs/index.html
+!docs/src/
+!docs/_static/
+
 poetry.lock
 
 # Byte-compiled / optimized / DLL files
