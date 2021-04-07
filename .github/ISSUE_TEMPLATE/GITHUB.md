@@ -1,7 +1,7 @@
 ---
 name: "[GITHUB] GitHub issue"
-about: "GitHub issues"
-title: "[GITHUB] "
+about: "Issues related to GitHub"
+title: "GITHUB: "
 labels: github
 assignees: ''
 
