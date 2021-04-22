@@ -1,8 +1,8 @@
 import sys
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import pandas_datareader
-
 import seaborn
 
 sys.path.append("../..")
