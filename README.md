@@ -8,7 +8,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 <p align="center">
-    <b>This repository was moved to <a href="https://github.com/fracdiff/fracdiff">fracdiff/fracdiff</a></b>.
+    <b>⚠️ This repository was moved to <a href="https://github.com/fracdiff/fracdiff">fracdiff/fracdiff</a>. ⚠️</b>
 </p>
 
 [Documentation](https://simaki.github.io/fracdiff/)
